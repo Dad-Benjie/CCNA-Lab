@@ -1,3 +1,5 @@
+!securing user mode and enable mode using shared pw
+
 en
 conf t
 hostname Libby
@@ -8,16 +10,46 @@ line cons 0
 password Lib
 login
 exit
-! exit - back to
+! exit - back to conf mode
 
 !telnet
 line vty 0 15
 password Lib
 login
-transport input all
+transport input all !all input: telnet, ssh
 end
-!end- back to
+!end- back to priv mode
 
 
-!to chek
+!to check
 sh run
+
+
+!Secure User Mode using login local
+conf t
+line cons 0
+login local
+username Lindy secret Beatr
+username Rhea secret Ai
+!no password (optional)
+!to delete all password entry, bec di kailangan sa login local
+
+!Secure using external servers (AAA)
+!Ginagamit ng mga companies para mas mabilis ang management ng employee pwords, lalo na regular ang pagpapalit
+!
+
+
+!!!Secure using SSH
+
+conf t
+hostname Libby
+ip domain name test.com
+crypto key generate rsa
+
+
+
+!!!Secure WebUI
+no ip http server
+ip http secure-server
+ip http authentication local
+username name priority 15 password pass-value
