@@ -1,0 +1,23 @@
+en
+conf t
+hostname Libby
+enable secret Libe
+
+!console/serial
+line cons 0
+password Lib
+login
+exit
+! exit - back to
+
+!telnet
+line vty 0 15
+password Lib
+login
+transport input all
+end
+!end- back to
+
+
+!to chek
+sh run
