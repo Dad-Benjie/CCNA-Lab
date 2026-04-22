@@ -1,0 +1,35 @@
+en
+conf t
+hostname R1
+enable password ccna
+exit
+
+sh run
+
+exit
+
+en
+ccna
+conf t
+service password-encryption
+do sh run
+exit
+exit
+! type 7 encrytion
+
+en
+ccna
+conf t
+enable secret Cisco
+exit
+exit
+
+
+en
+Cisco
+!enable secret > enable password
+!MD5 encryption
+sh run
+exit
+exit
+
