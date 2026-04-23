@@ -1,0 +1,29 @@
+!d8
+enable
+  conf t
+  hostname R1
+  do sh ip interface brief
+  
+    int g0/0
+      ip address 15.255.255.254 255.0.0.0
+      description ## to SW1 ##
+      no shut
+    int g0/1
+      ip address 182.98.255.254 255.255.0.0
+      description ## to SW2 ##
+      no shut
+    int g0/2
+      ip add 201.191.20.0 255.255.255.0
+      description ## to SW3 ##
+      no shut
+      end
+  
+  sh ip int brief
+
+  sh run
+
+  wr
+  wr mem
+  copy run start
+
+  !to PCs
