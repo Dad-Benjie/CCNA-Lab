@@ -1,0 +1,51 @@
+!#D9IntConf
+
+
+
+!CONFIG R1
+enable
+  configure terminal
+    hostname R1
+    do sh ip int brief
+    end
+
+  conf t
+    int G0/0
+    ip address 172.16.255.254 255.255.0.0
+    speed 1000
+    duplex full
+    description ## to SW1 ##
+    no shutdown
+  do sh ip int br
+
+    int range G0/1 - 2
+    description ## not in use ##
+    exit
+  exit
+sh ip int br
+sh run
+
+!SAVE
+copy running-config startup-config
+
+sh startup-config
+
+
+!CONFIGSW1
+en
+  conf t
+    hostname SW1
+  
+    int G0/1
+    speed 1000
+    duplex full
+    description ## to R1 ##
+
+
+
+
+
+
+
+
+
