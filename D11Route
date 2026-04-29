@@ -1,0 +1,29 @@
+#D11
+
+en
+conf t
+  int g/01
+    ip address 192.168.1.1 255.255.255.0
+    description ## to SW1 ##
+    no shutdown
+
+  int g/02
+    ip address 192.168.11.1 255.255.255.0
+    description ## to R2 ##
+    no shutdown
+    exit
+
+  ip route 192.168.22.0 255.255.255.0 192.168.11.2
+
+sh ip route
+! C, L, S
+
+
+ip route 0.0.0.0 0.0.0.0 203.20.10.1
+! S* Gateway of last resort
+
+sh ip route
+
+exit
+
+
