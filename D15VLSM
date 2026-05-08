@@ -1,0 +1,56 @@
+!VLSM
+
+!for R1
+en
+conf t
+hostname R1
+
+int G0/0
+ description ## to SW1 ##
+  !for LAN1 Subnet 2, 45 hosts
+ ip address 192.168.5.190 255.255.255.192 
+ duplex auto
+ speed auto
+!
+interface G0/1
+ description ## to SW2 ##
+!for LAN 1 Subnet 1, 64 pcs
+ ip address 192.168.5.126 255.255.255.128
+ duplex auto
+ speed auto
+!
+interface G0/0/0
+ description ## to R2 ##
+  !for LAN 5, P2P
+ ip address 192.168.5.225 255.255.255.252
+!
+!for PING
+ip route 0.0.0.0 0.0.0.0 192.168.5.226 
+
+
+
+! for R2
+en
+conf t
+hostname R2
+
+int g0/0
+ description ## to SW3 ##
+  !for LAN3 Subnet 3, 14h
+ ip address 192.168.5.206 255.255.255.240
+ duplex auto
+ speed auto
+!
+int G0/1
+ description ## to SW4 ##
+  !for LAN4 Sub4, 9h
+ ip address 192.168.5.222 255.255.255.240
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/0
+ description ## to R1 ##
+  !P2P
+ ip address 192.168.5.226 255.255.255.252
+!
+ip route 0.0.0.0 0.0.0.0 192.168.5.225 
