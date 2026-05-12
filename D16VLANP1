@@ -1,0 +1,59 @@
+!D16VLANP1
+
+
+!R1
+en
+conf t
+  int g0/0
+  ip add 10.0.0.62 255.255.255.192
+  desc ## to S1 VLAN 10 ENGG ##
+  no shut
+
+  int g0/1
+  ip add 10.0.0.126 255.255.255.192
+  desc ## to S1 VLAN 20 HR ##
+  no shut
+
+  int g0/2
+  ip add 10.0.0.190 255.255.255.192
+  desc ## to S1 VLAN 30 SALES ##
+  no shut
+exit
+
+do sh ip route
+
+
+!SW1
+en
+conf t
+  int range F3/1,F4/1,G0/1
+  switchport mode access
+  switchport access vlan 10
+exit
+
+  vlan 10
+  name Engineering
+exit
+do sh vlan br
+
+  int range F5/1,F6/1,G1/1
+  switchport mode access
+  switchport access vlan 20
+exit
+
+  vlan 20
+  name HR
+exit
+do sh vlan br
+
+  int range F7/1,F8/1,G2/1
+  switchport mode access
+  switchport access vlan 30
+exit
+
+  vlan 30
+  name Sales
+exit
+do sh vlan br
+
+
