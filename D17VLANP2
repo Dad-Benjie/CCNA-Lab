@@ -1,0 +1,81 @@
+!D17VLANP2
+
+!SW1
+en
+conf t
+  int range f0/1,f0/2
+  switchport mode access
+  switchport access vlan 10
+exit
+do sh vlan br
+
+  int range f0/3,f0/4
+  switchport mode access
+  switchport access vlan 30
+exit
+do sh vlan br
+
+int g0/1
+  switchport mode trunk
+  switchport trunk allowed vlan 10,30
+  switchport trunk native vlan 1006
+exit
+do sh vlan br
+
+
+!SW2
+en
+conf t
+  int range f0/1
+  switchport mode access
+  switchport access vlan 20
+exit
+do sh vlan br
+
+  int range f0/2,f0/3
+  switchport mode access
+  switchport access vlan 10
+exit
+do sh vlan br
+
+  int g0/1
+  switchport mode trunk
+  switchport trunk allowed vlan 10,30
+  switchport trunk native vlan 1006
+exit
+do sh vlan br
+
+  int g0/2
+  switchport mode trunk
+  switchport trunk allowed vlan 10,20,30
+  switchport trunk native vlan 1006
+exit
+do sh vlan br
+
+!R1
+en
+conf t
+  int g0/0.10
+  encapsulation dot1Q 10
+  ip address 10.0.0.62 255.255.255.192
+  desc ## VLAN 10 ##
+  no shut
+
+  int g0/0.20
+  encapsulation dot1Q 20
+  ip address 10.0.0.126 255.255.255.192
+  desc ## VLAN 20 ##
+  no shut
+
+  int g0/0.30
+  encapsulation dot1Q 30
+  ip address 10.0.0.190 255.255.255.192
+  desc ## VLAN 30 ##
+  no shut
+exit
+sh ip route
+
+  
+
+
+
