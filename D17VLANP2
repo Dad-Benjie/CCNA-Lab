@@ -3,7 +3,7 @@
 !SW1
 en
 conf t
-  int range f0/1,f0/2
+  int range f0/1-2
   switchport mode access
   switchport access vlan 10
 exit
@@ -55,7 +55,7 @@ do sh vlan br
 !R1
 en
 conf t
-  int g0/0.10
+  int g0/0.10 !subinterface
   encapsulation dot1Q 10
   ip address 10.0.0.62 255.255.255.192
   desc ## VLAN 10 ##
